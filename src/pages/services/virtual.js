@@ -27,8 +27,20 @@ const Virtual = () => {
     Live9,
     Live10,
   ]
+  const texts=[
+    //Header
+    "Immersive AV are a virtual event production specialist, with experience at every stage, from concept development to online delivery.",
+    //1st text
+    "Liberated from the restraints of a physical event, a virtual event enables the curation of the user experience to suit your event objectives.",
+    "We’ll take care of all your virtual event requirements. We’ll present concepts, develop the content and look after all hosting needs. We’ll manage the entire production and delivery process, keeping you updated with progress reports and visualisations.",
+    //2nd text
+    "A virtual event is an exciting opportunity to reach a greater audience than ever before. Releasing the shackles of time zone and geographic location makes your event accessible to more people.",
+    "Our developers will create the experience to your specific requirements, in terms of look and functionality. Whatever you need, we can do—from 3D environments to embedded digital assets and integration with social media and e-commerce platforms.",
+    //Footer text
+    "Dream big and achieve your greatest potential with a virtual event from Immersive AV."
+  ]
   return (
-    <ServiceItem serviceName="Virtual" heroImage={HeroImage} images={images} />
+    <ServiceItem serviceName="Virtual" heroImage={HeroImage} images={images} texts={texts} />
   )
 }
 

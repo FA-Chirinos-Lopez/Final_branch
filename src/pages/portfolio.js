@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
 import gsap from "gsap"
 
 import Header from "../components/header"
@@ -11,31 +13,70 @@ import News from "../components/news"
 import Footer from "../components/footer"
 import NewFooter from "../components/footerNew"
 
+import bgBlue from "../svg/bg-blue.svg"
+import bgArrowOrange from "../svg/bg-arrow-orange.svg"
+
 const Portfolio = () => {
   const [title, setTitle] = useState("title")
   const [type, setType] = useState("type")
   const [paragraph, setParagraph] = useState("paragraph")
   const [link, setLink] = useState("/")
 
+  const [updateKey, setUpdateKey] = useState(0)
+
+  // let updateKey = 0
+
   const togglePopup = (title, type, paragraph, link) => {
     console.log("toggle")
     const popup = document.querySelector(".portfolio-page__container__popup")
     console.log(popup)
 
-    setTitle(title)
-    setType(type)
-    setParagraph(paragraph)
-    setLink(link)
+    if (title && type && paragraph && link) {
+      setTitle(title)
+      setType(type)
+      setParagraph(paragraph)
+      setLink(link)
+      ScrollTrigger.refresh()
+      ScrollTrigger.getAll().forEach(instance => {
+        instance.kill()
+      })
+      setUpdateKey(updateKey + 1)
+    }
 
     // popup.style.display = popup.style.display === "none" ? "block" : "none"
 
-    if (popup.style.display === "none") {
-      popup.style.display = "block"
+    // if (popup.style.display === "none") {
+    //   popup.style.display = "block"
+    //   gsap.to(popup, {
+    //     opacity: 1,
+    //     duration: 0.2,
+    //     ease: "power4.in",
+    //   })
+    //   ScrollTrigger.refresh()
+    // } else {
+    //   gsap.to(popup, {
+    //     opacity: 0,
+    //     duration: 0.2,
+    //     ease: "power4.out",
+    //   })
+    //   setTimeout(() => {
+    //     popup.style.display = "none"
+    //     ScrollTrigger.refresh()
+    //   }, 200)
+    //   ScrollTrigger.getAll().forEach(instance => {
+    //     instance.kill()
+    //   })
+    //   ScrollTrigger.refresh()
+    // }
+
+    if (popup.style.pointerEvents === "none") {
+      popup.style.pointerEvents = "all"
       gsap.to(popup, {
         opacity: 1,
         duration: 0.2,
         ease: "power4.in",
       })
+      // ScrollTrigger.refresh()
     } else {
       gsap.to(popup, {
         opacity: 0,
@@ -43,8 +84,10 @@ const Portfolio = () => {
         ease: "power4.out",
       })
       setTimeout(() => {
-        popup.style.display = "none"
+        popup.style.pointerEvents = "none"
+        // ScrollTrigger.refresh()
       }, 200)
+      // ScrollTrigger.refresh()
     }
 
     // popup.style.opacity = popup.style.opacity === 0 ? 1 : 1
@@ -78,13 +121,20 @@ const Portfolio = () => {
     <div className="wrapper">
       {/* <Hero /> */}
       <Header />
-      <LowHero />
+      <LowHero key={updateKey} />
       <div className="portfolio-page">
+        <div className="bg-av">
+          <img
+            className="bg-av__img bg-av__img--arrow-orange bg-av__img--arrow-orange--portfolio"
+            src={bgArrowOrange}
+            alt=""
+          />
+        </div>
         <h1 className="portfolio-page__h1">Case Studies</h1>
         <div className="portfolio-page__container">
           <div
             className="portfolio-page__container__popup"
-            style={{ display: "none", opacity: 0 }}
+            style={{ pointerEvents: "none", opacity: 0 }}
           >
             <svg
               onClick={() => togglePopup()}
@@ -122,12 +172,17 @@ const Portfolio = () => {
                   See project
                 </button>
               </Link>
-              <p className="portfolio-page__container__popup__text__p">
-                {paragraph}
-              </p>
+              <div className="portfolio-page__container__popup__text__description">
+                <p className="portfolio-page__container__popup__text__description__p">
+                  {paragraph.split("|")[0]}
+                </p>
+                <p className="portfolio-page__container__popup__text__description__p">
+                  {paragraph.split("|")[1]}
+                </p>
+              </div>
             </div>
           </div>
-          <div className="portfolio-page__container__item"></div>
+          <div className="portfolio-page__container__item portfolio-page__container__item--empty"></div>
           <div
             className="portfolio-page__container__item"
             onClick={e => {
@@ -135,7 +190,7 @@ const Portfolio = () => {
               togglePopup(
                 "Adidas Retail Experiential Installation",
                 "Live",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in semper dolor. Aliquam gravida purus vel sem facilisis viverra. Vestibulum eu sapien vel nisl semper consectetur sed et lorem.",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultricies dolor massa, non scelerisque lorem finibus vitae. Donec sit amet nulla lacus. Phasellus pharetra vehicula fringilla. Vivamus sit amet neque auctor, commodo quam sed, lobortis felis. Proin luctus metus quis tincidunt posuere. Maecenas faucibus orci nec semper consectetur.| Quisque auctor enim vitae vulputate porttitor. Donec fermentum ornare odio, quis commodo ex mattis quis.",
                 "/adidas-experiential-retail-installation"
               )
             }}
@@ -154,7 +209,7 @@ const Portfolio = () => {
               togglePopup(
                 "Mini All Electric Launch",
                 "Hybrid",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in semper dolor. Aliquam gravida purus vel sem facilisis viverra. Vestibulum eu sapien vel nisl semper consectetur sed et lorem.",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultricies dolor massa, non scelerisque lorem finibus vitae. Donec sit amet nulla lacus. Phasellus pharetra vehicula fringilla. Vivamus sit amet neque auctor, commodo quam sed, lobortis felis. Proin luctus metus quis tincidunt posuere. Maecenas faucibus orci nec semper consectetur.| Quisque auctor enim vitae vulputate porttitor. Donec fermentum ornare odio, quis commodo ex mattis quis.",
                 "/adidas-experiential-retail-installation"
               )
             }}
@@ -166,7 +221,18 @@ const Portfolio = () => {
             />
             <div className="portfolio-page__container__item__overlay" />
           </div>
-          <div className="portfolio-page__container__item">
+          <div
+            className="portfolio-page__container__item"
+            onClick={e => {
+              e.persist()
+              togglePopup(
+                "The UMA Music Video",
+                "Live",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultricies dolor massa, non scelerisque lorem finibus vitae. Donec sit amet nulla lacus. Phasellus pharetra vehicula fringilla. Vivamus sit amet neque auctor, commodo quam sed, lobortis felis. Proin luctus metus quis tincidunt posuere. Maecenas faucibus orci nec semper consectetur.| Quisque auctor enim vitae vulputate porttitor. Donec fermentum ornare odio, quis commodo ex mattis quis.",
+                "/the-uma-music-video"
+              )
+            }}
+          >
             <StaticImage
               className="showcase__img"
               src="../images/project3.jpeg"
@@ -174,8 +240,19 @@ const Portfolio = () => {
             />
             <div className="portfolio-page__container__item__overlay" />
           </div>
-          <div className="portfolio-page__container__item"></div>
-          <div className="portfolio-page__container__item">
+          <div className="portfolio-page__container__item portfolio-page__container__item--empty"></div>
+          <div
+            className="portfolio-page__container__item"
+            onClick={e => {
+              e.persist()
+              togglePopup(
+                "Panasonic Virtual Conference",
+                "Live",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultricies dolor massa, non scelerisque lorem finibus vitae. Donec sit amet nulla lacus. Phasellus pharetra vehicula fringilla. Vivamus sit amet neque auctor, commodo quam sed, lobortis felis. Proin luctus metus quis tincidunt posuere. Maecenas faucibus orci nec semper consectetur.| Quisque auctor enim vitae vulputate porttitor. Donec fermentum ornare odio, quis commodo ex mattis quis.",
+                "/panasonic-virtual-conference"
+              )
+            }}
+          >
             <StaticImage
               className="showcase__img"
               src="../images/project4.jpeg"
@@ -216,8 +293,8 @@ const Portfolio = () => {
             />
             <div className="portfolio-page__container__item__overlay" />
           </div>
-          <div className="portfolio-page__container__item"></div>
-          <div className="portfolio-page__container__item">
+          <div className="portfolio-page__container__item portfolio-page__container__item--empty"></div>
+          <div className="portfolio-page__container__item ">
             <StaticImage
               className="showcase__img"
               src="../images/project9.jpeg"
@@ -225,7 +302,7 @@ const Portfolio = () => {
             />
             <div className="portfolio-page__container__item__overlay" />
           </div>
-          <div className="portfolio-page__container__item"></div>
+          <div className="portfolio-page__container__item portfolio-page__container__item--empty"></div>
           <div className="portfolio-page__container__item">
             <StaticImage
               className="showcase__img"
@@ -234,8 +311,8 @@ const Portfolio = () => {
             />
             <div className="portfolio-page__container__item__overlay" />
           </div>
-          <div className="portfolio-page__container__item"></div>
-          <div className="portfolio-page__container__item"></div>
+          <div className="portfolio-page__container__item portfolio-page__container__item--empty"></div>
+          <div className="portfolio-page__container__item portfolio-page__container__item--empty"></div>
           <div className="portfolio-page__container__item">
             <StaticImage
               className="showcase__img"
@@ -244,7 +321,7 @@ const Portfolio = () => {
             />
             <div className="portfolio-page__container__item__overlay" />
           </div>
-          <div className="portfolio-page__container__item"></div>
+          <div className="portfolio-page__container__item portfolio-page__container__item--empty"></div>
           <div className="portfolio-page__container__item">
             <StaticImage
               className="showcase__img"
@@ -260,7 +337,7 @@ const Portfolio = () => {
               togglePopup(
                 "Huawei Rubik's Cube",
                 "Hybrid",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in semper dolor. Aliquam gravida purus vel sem facilisis viverra. Vestibulum eu sapien vel nisl semper consectetur sed et lorem.",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultricies dolor massa, non scelerisque lorem finibus vitae. Donec sit amet nulla lacus. Phasellus pharetra vehicula fringilla. Vivamus sit amet neque auctor, commodo quam sed, lobortis felis. Proin luctus metus quis tincidunt posuere. Maecenas faucibus orci nec semper consectetur.| Quisque auctor enim vitae vulputate porttitor. Donec fermentum ornare odio, quis commodo ex mattis quis.",
                 "/adidas-experiential-retail-installation"
               )
             }}

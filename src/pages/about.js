@@ -8,6 +8,8 @@ import News from "../components/news"
 // import Footer from "../components/footer"
 import NewFooter from "../components/footerNew"
 
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
 import bgBlue from "../svg/bg-blue.svg"
 import bgOrange from "../svg/bg-orange.svg"
 import bgArrowOrange from "../svg/bg-arrow-orange.svg"
@@ -39,8 +41,7 @@ const About = () => {
             alt=""
           />
           <h2 className="about-page__container__h2 about-page__container__h2--0 about-page__container--right">
-            Lorem ipsum dolor sit amet, consecteur adipiscing eit, sed do
-            eiusmod tempor
+          We’re a team of intrepid technologists, driven by the spirit of innovation and the constant pursuit of excellence.
           </h2>
           <StaticImage
             className="about-page__container__img about-page__container__img--1 about-page__container--left"
@@ -61,7 +62,7 @@ const About = () => {
             alt=""
           />
           <h2 className="about-page__container__h2 about-page__container__h2--1 about-page__container--left">
-            Lorem ipsum dolor sit amet
+          Experience matters
           </h2>
           <p className="about-page__container__p about-page__container__p--1 about-page__container--right">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus

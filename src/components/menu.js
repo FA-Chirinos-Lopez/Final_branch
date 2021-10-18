@@ -9,7 +9,7 @@ const Menu = props => (
     style={{ backgroundColor: props.backgroundColour, color: props.textColour }}
   >
     <div className="menu__columns">
-      <div className="menu__columns__column menu__columns__column--left"></div>
+      {/* <div className="menu__columns__column menu__columns__column--left"></div> */}
       <div className="menu__columns__column menu__columns__column--right"></div>
     </div>
     <ul className="menu__items">
@@ -92,7 +92,7 @@ const Menu = props => (
           ".menu__items",
           {
             opacity: 0,
-            skewX: 8,
+            // skewX: 8,
             duration: 0.2,
             ease: "power4.easeOut",
           },

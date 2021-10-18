@@ -289,7 +289,7 @@ const HireExpo = () => {
             Discover
           </button>
           <h2 className="hire-expo__boxes__box__description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Short-term rental for AV & IT technology.
           </h2>
         </div>
         <div
@@ -304,7 +304,7 @@ const HireExpo = () => {
             Discover
           </button>
           <h2 className="hire-expo__boxes__box__description hire-expo__boxes__box__description--1">
-            Aliquam vel neque et urna fermentum vestibulum condimentum a mi.
+            Technical production for exhibitions and conferences.
           </h2>
         </div>
       </div>
